@@ -1,0 +1,59 @@
+{
+  "Overall – Health (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS OverallScore FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Health' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY OverallScore DESC;",
+
+  "Overall – Motor (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS OverallScore FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Motor' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY OverallScore DESC;",
+
+  "Top 5 – Health (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Health' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Bottom 5 – Health (Score)": 
+    "SELECT emp.Employee_ID, emp.Name,ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Health' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+
+  "Top 5 – Motor (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Motor' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Bottom 5 – Motor (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE emp.Business_Area = 'Motor' AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+
+  "Week 1 – Top 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Week 1 – Bottom 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+
+  "Week 2 – Top 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 1 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Week 2 – Bottom 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 1 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+  "Week 3 – Top 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 2 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Week 3 – Bottom 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 2 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+
+  "Week 4 – Top 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 3 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score DESC LIMIT 5;",
+
+  "Week 4 – Bottom 5 Performers (Score)": 
+    "SELECT emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((log.TOTAL_DIALS/250)*100,100) + LEAST((log.TALK_DURATION/120)*100,100))/2),2) AS Score FROM dailyactivitylog log JOIN employeedetails emp ON emp.Employee_ID = log.TCN_ID WHERE WEEK(log.Date,5) = (SELECT WEEK(MIN(Date),5) + 3 FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog)) AND emp.Designation <> 'Team Leader' GROUP BY emp.Employee_ID, emp.Name ORDER BY Score ASC LIMIT 5;",
+
+
+  "Monthly Week Division – Avg Calls & TalkTime": 
+    "SELECT WEEK(Date,5) AS Week, ROUND(AVG(TOTAL_DIALS),2) AS AvgCalls, TIME_FORMAT(SEC_TO_TIME(ROUND(AVG(TALK_DURATION)*60)), '%H:%i:%s') AS AvgTalkHHMMSS FROM dailyactivitylog WHERE DATE_FORMAT(Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog) GROUP BY WEEK(Date,5) ORDER BY Week;",
+
+  "Team Leaders – Monthly Avg TalkTime & Calls (Team Count)": 
+    "SELECT e.Team_Leader, COUNT(DISTINCT e.Employee_ID) AS TeamCount, ROUND(AVG(d.TOTAL_DIALS),2) AS AvgCalls, TIME_FORMAT(SEC_TO_TIME(ROUND(AVG(d.TALK_DURATION)*60)), '%H:%i:%s') AS AvgTalkHHMMSS FROM dailyactivitylog d JOIN employeedetails e ON d.TCN_ID = e.Employee_ID WHERE DATE_FORMAT(d.Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog) AND e.Designation <> 'Team Leader' GROUP BY e.Team_Leader ORDER BY AvgCalls DESC;",
+
+  "Weekly Report – Under Team Leaders": 
+    "SELECT e.Team_Leader, WEEK(d.Date,5) AS Week, COUNT(DISTINCT e.Employee_ID) AS TeamCount, ROUND(AVG(d.TOTAL_DIALS),2) AS AvgCalls, TIME_FORMAT(SEC_TO_TIME(ROUND(AVG(d.TALK_DURATION)*60)), '%H:%i:%s') AS AvgTalkHHMMSS FROM dailyactivitylog d JOIN employeedetails e ON d.TCN_ID = e.Employee_ID WHERE DATE_FORMAT(d.Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog) AND e.Designation <> 'Team Leader' GROUP BY e.Team_Leader, WEEK(d.Date,5) ORDER BY e.Team_Leader, Week;",
+
+  "Top 5 – Under Each Team Leader": 
+    "SELECT Team_Leader, Employee_ID, Name, Score FROM ( SELECT emp.Team_Leader, emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((d.TOTAL_DIALS/250)*100,100) + LEAST((d.TALK_DURATION/120)*100,100))/2),2) AS Score, ROW_NUMBER() OVER (PARTITION BY emp.Team_Leader ORDER BY AVG((LEAST((d.TOTAL_DIALS/250)*100,100) + LEAST((d.TALK_DURATION/120)*100,100))/2) DESC) AS rn FROM dailyactivitylog d JOIN employeedetails emp ON d.TCN_ID = emp.Employee_ID WHERE DATE_FORMAT(d.Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog) AND emp.Designation <> 'Team Leader' GROUP BY emp.Team_Leader, emp.Employee_ID, emp.Name ) ranked WHERE rn <= 5 ORDER BY Team_Leader, Score DESC;",
+
+  "Bottom 5 – Under Each Team Leader": 
+    "SELECT Team_Leader, Employee_ID, Name, Score FROM ( SELECT emp.Team_Leader, emp.Employee_ID, emp.Name, ROUND(AVG((LEAST((d.TOTAL_DIALS/250)*100,100) + LEAST((d.TALK_DURATION/120)*100,100))/2),2) AS Score, ROW_NUMBER() OVER (PARTITION BY emp.Team_Leader ORDER BY AVG((LEAST((d.TOTAL_DIALS/250)*100,100) + LEAST((d.TALK_DURATION/120)*100,100))/2) ASC) AS rn FROM dailyactivitylog d JOIN employeedetails emp ON d.TCN_ID = emp.Employee_ID WHERE DATE_FORMAT(d.Date,'%Y-%m') = (SELECT DATE_FORMAT(MAX(Date),'%Y-%m') FROM dailyactivitylog) AND emp.Designation <> 'Team Leader' GROUP BY emp.Team_Leader, emp.Employee_ID, emp.Name ) ranked WHERE rn <= 5 ORDER BY Team_Leader, Score ASC;"
+}
+
